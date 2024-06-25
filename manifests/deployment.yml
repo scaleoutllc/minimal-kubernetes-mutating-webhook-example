@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: labelmutation
+  labels:
+    app: labelmutation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: labelmutation
+  template:
+    metadata:
+      labels:
+        app: labelmutation
+    spec:
+      containers:
+      - name: labelmutation
+        image: golang:1.22.3-alpine
+        command: ["sh"]
+        args: ["-c", "cd /src && go run main.go"]
+        ports:
+        - containerPort: 8443
+        volumeMounts:
+        - name: root
+          mountPath: /src
+      volumes:
+      - name: root
+        configMap:
+          name: src

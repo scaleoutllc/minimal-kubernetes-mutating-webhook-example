@@ -1,0 +1,12 @@
+configMapGenerator:
+- name: src
+  files:
+  - webhook/main.go
+  - webhook/go.mod
+  - webhook/go.sum
+  - webhook/pki/server.crt
+  - webhook/pki/server.key
+resources:
+- manifests/mutatingwebhookconfiguration.yml
+- manifests/deployment.yml
+- manifests/service.yml

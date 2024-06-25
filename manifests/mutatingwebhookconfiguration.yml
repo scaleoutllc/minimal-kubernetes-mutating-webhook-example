@@ -1,0 +1,25 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: labelmutation
+  labels:
+    app: labelmutation
+webhooks:
+- name: labelmutation.default.svc.cluster.local
+  clientConfig:
+    caBundle: $CA_BUNDLE
+    service:
+      name: labelmutation
+      namespace: default
+      path: "/"
+  sideEffects: None
+  admissionReviewVersions: ["v1"]
+  failurePolicy: Fail
+  rules:
+  - operations: ["CREATE"]
+    apiGroups: [""]
+    apiVersions: ["v1"]
+    resources: ["pods"]
+  namespaceSelector:
+    matchLabels:
+      webhook: enabled

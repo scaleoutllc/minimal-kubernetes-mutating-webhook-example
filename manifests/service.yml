@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: labelmutation
+spec:
+  selector:
+    app: labelmutation
+  ports:
+  - protocol: TCP
+    port: 443
+    targetPort: 8443
