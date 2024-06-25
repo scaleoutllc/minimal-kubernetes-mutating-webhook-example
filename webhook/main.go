@@ -6,7 +6,6 @@ import (
 	"io"
 	"log"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/tidwall/gjson"
@@ -21,9 +20,8 @@ func main() {
 		WriteTimeout: 10 * time.Second,
 		IdleTimeout:  60 * time.Second,
 	}
-	rootDir := os.Getenv("ROOT_DIR")
 	log.Printf("Listening on http://0.0.0.0%s\n", server.Addr)
-	err := server.ListenAndServeTLS(rootDir+"server.crt", rootDir+"server.key")
+	err := server.ListenAndServeTLS("server.crt", "server.key")
 	if err != nil {
 		log.Fatal(err)
 	}
